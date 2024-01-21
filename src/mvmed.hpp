@@ -5,7 +5,11 @@
 #include <vector>
 #include <filesystem>
 
-struct mvmed_config {
+#define TYPE_FILE 1
+#define TYPE_DIR 0
+
+struct mvmed_config
+{
     std::filesystem::path from_show_dir;
     std::filesystem::path from_movie_dir;
     std::filesystem::path to_show_dir;
@@ -16,17 +20,18 @@ struct mvmed_config {
     std::filesystem::path in_movie_dir;
 };
 
-class mvmed {
-    private:
-        const mvmed_config* conf;
+class mvmed
+{
+private:
+    const mvmed_config *conf;
 
-        void scan_for_dirs(const std::filesystem::path& path, std::vector<std::filesystem::path>& dirs);
+    void scan_for_entries(const std::filesystem::path &path, std::vector<std::filesystem::path> &entries, const int &type);
 
-    public:
-        mvmed(const mvmed_config* conf);
-        ~mvmed();
+public:
+    mvmed(const mvmed_config *conf);
+    ~mvmed();
 
-        void run();
+    void run();
 };
 
 #endif
